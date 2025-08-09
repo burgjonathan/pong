@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Pong</title>
+    <style>
+        body {
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        window['libopenmpt'] = {};
+        libopenmpt.locateFile = function (filename) {
+          return "assets/chiptune2.js/" + filename;
+        };
+        var chiptunePlayer;
+        var chiptuneUrlToPlay = null;
+        window.playChiptune = function(url) {
+            if (chiptunePlayer) {
+                chiptunePlayer.load(url, (buffer) => chiptunePlayer.play(buffer));
+            } else {
+                chiptuneUrlToPlay = url;
+            }
+        };
+
+        window.pauseChiptune = function() {
+            if (chiptunePlayer) {
+                chiptunePlayer.togglePause();
+            }
+        };
+
+        window.resumeChiptune = function() {
+            if (chiptunePlayer) {
+                chiptunePlayer.play();
+            }
+        };
+
+        libopenmpt.onRuntimeInitialized = function () {
+            chiptunePlayer = new ChiptuneJsPlayer(new ChiptuneJsConfig(-1));
+            if (chiptuneUrlToPlay) {
+                window.playChiptune(chiptuneUrlToPlay);
+            }
+        };
+    </script>
+    <script type="text/javascript" src="assets/chiptune2.js/libopenmpt.js"></script>
+    <script type="text/javascript" src="assets/chiptune2.js/chiptune2.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>
