@@ -11,8 +11,8 @@ export default class GameScene extends Phaser.Scene {
 
         // Music rotation system
         this.musicTracks = [
-            'assets/music/chipsounds.mod',
             'assets/music/cydonian sky.xm',
+            'assets/music/chipsounds.mod',
             'assets/music/mysteristerium.mod',
             'assets/music/rfchip001.xm'
         ];
